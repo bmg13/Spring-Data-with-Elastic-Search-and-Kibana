@@ -1,0 +1,15 @@
+common:
+  api:
+    base-url: ""
+    api-key: ""
+server:
+  port: 8085
+  servlet:
+    contextPath: /bmg13
+management:
+  endpoints:
+    metrics:
+      enabled: true
+    web:
+      exposure:
+        include: '*'

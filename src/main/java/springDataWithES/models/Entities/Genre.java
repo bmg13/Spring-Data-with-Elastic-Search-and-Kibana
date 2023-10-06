@@ -7,6 +7,7 @@ public enum Genre {
     THRILLER("THRILLER"),
     BIOGRAPHY("BIOGRAPHY"),
     FANTASY("FANTASY"),
+    ACTION("ACTION"),
     OTHER("OTHER");
 
     private String genre;

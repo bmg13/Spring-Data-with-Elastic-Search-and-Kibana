@@ -9,5 +9,5 @@ import springDataWithES.models.Entities.Film;
 public interface FilmRepository extends ElasticsearchRepository<Film, String> {
 
     @Query("{\"bool\": {\"must\": [{\"match\": {\"title\": \"?0\"}}]}}")
-    Film findByFilmNameUsingCustomQuery(String name);
+    Film findByFilmNameUsingCustomQuery(String title);
 }

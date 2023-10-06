@@ -8,4 +8,8 @@ public class Author extends User {
         super(userId, name, favouriteFilms);
     }
 
+    public Author(String name) {
+        super(name);
+    }
+
 }

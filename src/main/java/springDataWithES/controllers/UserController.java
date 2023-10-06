@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import springDataWithES.models.DTO.Author;
 import springDataWithES.models.DTO.User;
 import springDataWithES.services.UserService;
+import java.util.List;
 
 @RestController
 @RequestMapping(
@@ -23,6 +24,11 @@ public class UserController {
     @GetMapping(path = "user")
     public User retrieveUser(@PathVariable String name) {
         return this.userService.retrieveUserByName(name);
+    }
+
+    @GetMapping(path = "all/user")
+    public List<User> retrieveAllUsers() {
+        return this.userService.retrieveAllUsers();
     }
 
     @PostMapping(path = "user/add")

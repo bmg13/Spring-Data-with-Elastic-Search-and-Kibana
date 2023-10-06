@@ -1,5 +1,7 @@
 package springDataWithES.models.DTO;
 
+import springDataWithES.models.Entities.Genre;
+
 import java.util.Date;
 import java.util.Objects;
 

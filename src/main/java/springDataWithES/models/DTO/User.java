@@ -13,6 +13,10 @@ public class User {
         this.favouriteFilms = favouriteFilms;
     }
 
+    public User(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

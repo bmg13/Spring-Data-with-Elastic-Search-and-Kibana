@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Author extends User {
 
+    public Author() {super();}
+
     public Author(String name, List<Film> favouriteFilms) {
         super(name, favouriteFilms);
     }

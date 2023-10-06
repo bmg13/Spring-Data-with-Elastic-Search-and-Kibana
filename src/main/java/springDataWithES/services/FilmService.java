@@ -2,11 +2,17 @@ package springDataWithES.services;
 
 import springDataWithES.models.DTO.Film;
 
+import java.util.List;
+
 public interface FilmService {
 
     Film retrieveFilmByName(String name);
 
-    void addFilm(Film user);
+    List<Film> retrieveAllFilms();
 
-    void deleteFilm(Film user);
+    void addFilm(Film film);
+
+    void deleteFilm(String title);
+
+    void deleteAllFilms();
 }

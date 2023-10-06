@@ -41,4 +41,14 @@ public class UserController {
     public void addDirector(@RequestBody Author director) {
         this.userService.addUser(director);
     }
+
+    @DeleteMapping(path = "/delete/{name}")
+    public void deleteUser(@RequestBody User user) {
+        this.userService.deleteUser(user);
+    }
+
+    @DeleteMapping(path = "/delete/all")
+    public void deleteAllUsers() {
+        this.userService.deleteAllUsers();
+    }
 }

@@ -8,6 +8,8 @@ public class User {
     private String name;
     private List<Film> favouriteFilms;
 
+    public User() {}
+
     public User(String name, List<Film> favouriteFilms) {
         this.name = name;
         this.favouriteFilms = favouriteFilms;

@@ -12,6 +12,8 @@ public class Film {
     private Author director;
     private Date dateOfRelease;
 
+    public Film() {}
+
     public Film(String title, Genre genre, Author director, Date dateOfRelease) {
         this.title = title;
         this.genre = genre;

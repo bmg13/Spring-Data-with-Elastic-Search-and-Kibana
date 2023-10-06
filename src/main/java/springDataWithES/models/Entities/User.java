@@ -18,6 +18,8 @@ public class User {
     @Field(type = FieldType.Nested, includeInParent = true)
     private List<Film> favouriteFilms;
 
+    public User() {}
+
     public User(String id, String name, List<Film> favouriteFilms) {
         this.id = id;
         this.name = name;

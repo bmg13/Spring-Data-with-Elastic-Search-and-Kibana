@@ -8,6 +8,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 @Repository
 public interface UserRepository extends ElasticsearchRepository<User, String> {
 
-    @Query("{\"bool\": {\"must\": [{\"match\": {\"user.name\": \"?0\"}}]}}")
+    @Query("{\"bool\": {\"must\": [{\"match\": {\"name\": \"?0\"}}]}}")
     User findByUserNameUsingCustomQuery(String name);
 }

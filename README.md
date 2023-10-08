@@ -1,4 +1,4 @@
-# Spring Data with ElasticSearch
+# Spring Data with ElasticSearch using Kibana
 
 ## Overview
 
@@ -35,6 +35,9 @@ Custom queries are used to illustrate querying with Elastic Search. As an exampl
 
 
 ## API Usage
+
+First start dependencies (like Elastic Search) using docker. On the project base dir:
+```docker-compose up```
 
 #### Create User with Non-Existent Film
 Request:
@@ -339,11 +342,31 @@ Response:
 }
 ```
 
+## Kibana
+
+To help observability, Kibana dependency was added (through docker compose) and, using GUI client on port 5601, provides a visual approach.
+Since Kibana combines perfectly with Elastic Search, the indexes (film and user in this project) can be rapidly seen and used in logging and monitoring.
+
+After ```docker-compose up``` is ran, access here: ```localhost:5601/app/kibana#/discover```
+
+First, create the indexes:
+![create_index_pattern](resources/create_index_pattern.png "Create Index Pattern")
+and briefly follow the indicated steps
+![index_management](resources/index_management.png "Index Management")
+
+
+Now, can start by checking the logs exported
+![logs](resources/logs.png "Logs")
+
+and later create monitoring specific for the application, like the number of users registered in the Elastic Search.
+![number_of_users](resources/number_of_users.png "Number of Users Gauge")
+
 
 ## Useful Links
 
 - https://www.baeldung.com/spring-data-elasticsearch-tutorial
 - https://reflectoring.io/spring-boot-elasticsearch/
+- https://www.elastic.co/blog/getting-started-with-the-elastic-stack-and-docker-compose
 
 
 ## Annex
@@ -357,13 +380,13 @@ Response:
 - Create dummy population (directly within the application) was made.
 
 ```
-Film film1 = new Film("The Godfather", Genre.DRAMA, new Author("Francis Ford Coppola"), new Date("14/03/1972"));
-Film film2 = new Film("The Grand Budapest Hotel", Genre.COMEDY, new Author("Wes Anderson"), new Date("06/02/2014"));
-Film film3 = new Film("The Lord of The Rings", Genre.FANTASY, new Author("Peter Jackson"), new Date("10/12/2001"));
+Film film1 = new Film(UUID.randomUUID().toString(), "The Godfather", Genre.DRAMA, new Author("Francis Ford Coppola"), new Date("14/03/1972"));
+Film film2 = new Film(UUID.randomUUID().toString(), "The Grand Budapest Hotel", Genre.COMEDY, new Author("Wes Anderson"), new Date("06/02/2014"));
+Film film3 = new Film(UUID.randomUUID().toString(), "The Lord of The Rings", Genre.FANTASY, new Author("Peter Jackson"), new Date("10/12/2001"));
 List<Film> films = new ArrayList<>();
 films.add(film1);
 films.add(film2);
 films.add(film3);
-User user1 = new User("farofa", films);
-User user2 = new User("gg", new ArrayList<>());
+springDataWithES.models.Entities.User user1 = new springDataWithES.models.Entities.User(UUID.randomUUID().toString(), "farofa", films);
+springDataWithES.models.Entities.User user2 = new springDataWithES.models.Entities.User(UUID.randomUUID().toString(), "gg", new ArrayList<>());
 ```

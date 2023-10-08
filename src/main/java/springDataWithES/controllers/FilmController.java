@@ -26,6 +26,11 @@ public class FilmController {
         return this.filmService.retrieveFilmByName(name);
     }
 
+    @PutMapping(path = "/update")
+    public void updateFilm(@RequestBody Film film) {
+        this.filmService.updateFilm(film);
+    }
+
     @GetMapping(path = "/all")
     public List<Film> retrieveAllFilms() {
         return this.filmService.retrieveAllFilms();

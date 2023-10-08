@@ -36,6 +36,10 @@ public class UserController {
         this.userService.addUser(user);
     }
 
+    @PutMapping(path = "/user/update")
+    public void updateUser(@RequestBody User user) {
+        this.userService.updateUser(user);
+    }
 
     @PostMapping(path = "director/add")
     public void addDirector(@RequestBody Author director) {

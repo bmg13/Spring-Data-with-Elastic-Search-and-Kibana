@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class Film {
 
+    private String id;
     private String title;
     private Genre genre;
     private Author director;
@@ -14,11 +15,20 @@ public class Film {
 
     public Film() {}
 
-    public Film(String title, Genre genre, Author director, Date dateOfRelease) {
+    public Film(String id, String title, Genre genre, Author director, Date dateOfRelease) {
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.director = director;
         this.dateOfRelease = dateOfRelease;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -58,12 +68,12 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return Objects.equals(title, film.title) && genre == film.genre && Objects.equals(director, film.director) && Objects.equals(dateOfRelease, film.dateOfRelease);
+        return Objects.equals(id, film.id) && Objects.equals(title, film.title) && genre == film.genre && Objects.equals(director, film.director) && Objects.equals(dateOfRelease, film.dateOfRelease);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, genre, director, dateOfRelease);
+        return Objects.hash(id, title, genre, director, dateOfRelease);
     }
 
     @Override

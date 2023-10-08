@@ -26,11 +26,6 @@ public class User {
         this.favouriteFilms = favouriteFilms;
     }
 
-    public User(String name, List<Film> favouriteFilms) {
-        this.name = name;
-        this.favouriteFilms = favouriteFilms;
-    }
-
     public User(String name) {
         this.name = name;
     }

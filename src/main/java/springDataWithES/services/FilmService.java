@@ -12,6 +12,8 @@ public interface FilmService {
 
     void addFilm(Film film);
 
+    void updateFilm(Film film);
+
     void deleteFilm(String title);
 
     void deleteAllFilms();

@@ -26,13 +26,6 @@ public class Film {
         this.dateOfRelease = dateOfRelease;
     }
 
-    public Film(String title, Genre genre, Author director, Date dateOfRelease) {
-        this.title = title;
-        this.genre = genre;
-        this.director = director;
-        this.dateOfRelease = dateOfRelease;
-    }
-
     public String getId() {
         return id;
     }

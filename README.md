@@ -2,21 +2,40 @@
 
 ## Overview
 
+SpringBoot application using Spring Data with Elastic Search. Simply, represents CRUD operations with groups of users with favourite films (which in itself contains a user as a director).
+
+
+## Tech Analysis
+
+High level application architecture is represented with three major layers to promote decoupling: Presentation, Service and Persistence.
+
+<b>Client <-> Controllers <-DTO-> Services <-Entities-> Persistence</b>   
+
+To keep separation of responsability, different models are used when in response to client and accessing the repositories. 
+
+Added the dependency for Spring Data with ES
+```
+<dependency>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-elasticsearch</artifactId>
+  <version>${spring.data.version}</version>
+</dependency>
+```
+
+The Data is defined using Spring Data, defining the index in the class name and identifying the id with proper annotation.
+
+```
+@Document(indexName = "film")
+public class Film {
+    @Id
+    private String id;
+```
+
+Custom queries are used to illustrate querying with Elastic Search. As an example, finding an user by name: ```@Query("{\"bool\": {\"must\": [{\"match\": {\"name\": \"?0\"}}]}}")```
 
 
 ## API Usage
-Firstly, dummy population (directly within the application) was made.
-```
-Film film1 = new Film("The Godfather", Genre.DRAMA, new Author("Francis Ford Coppola"), new Date("14/03/1972"));
-Film film2 = new Film("The Grand Budapest Hotel", Genre.COMEDY, new Author("Wes Anderson"), new Date("06/02/2014"));
-Film film3 = new Film("The Lord of The Rings", Genre.FANTASY, new Author("Peter Jackson"), new Date("10/12/2001"));
-List<Film> films = new ArrayList<>();
-films.add(film1);
-films.add(film2);
-films.add(film3);
-User user1 = new User("farofa", films);
-User user2 = new User("gg", new ArrayList<>());
-```
+
 #### Create User with Non-Existent Film
 Request:
 POST:http://localhost:8085/bmg13/user/add
@@ -325,3 +344,26 @@ Response:
 
 - https://www.baeldung.com/spring-data-elasticsearch-tutorial
 - https://reflectoring.io/spring-boot-elasticsearch/
+
+
+## Annex
+
+- Run Elastic Search container in Docker (if not using Docker Compose)
+
+```docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.8.0```
+
+
+
+- Create dummy population (directly within the application) was made.
+
+```
+Film film1 = new Film("The Godfather", Genre.DRAMA, new Author("Francis Ford Coppola"), new Date("14/03/1972"));
+Film film2 = new Film("The Grand Budapest Hotel", Genre.COMEDY, new Author("Wes Anderson"), new Date("06/02/2014"));
+Film film3 = new Film("The Lord of The Rings", Genre.FANTASY, new Author("Peter Jackson"), new Date("10/12/2001"));
+List<Film> films = new ArrayList<>();
+films.add(film1);
+films.add(film2);
+films.add(film3);
+User user1 = new User("farofa", films);
+User user2 = new User("gg", new ArrayList<>());
+```

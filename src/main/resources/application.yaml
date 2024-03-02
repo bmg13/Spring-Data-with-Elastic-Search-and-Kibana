@@ -20,3 +20,5 @@ spring:
       cluster-nodes: localhost:9200
       repositories:
         enabled: true
+  security:
+    debug: false

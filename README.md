@@ -390,3 +390,7 @@ films.add(film3);
 springDataWithES.models.Entities.User user1 = new springDataWithES.models.Entities.User(UUID.randomUUID().toString(), "farofa", films);
 springDataWithES.models.Entities.User user2 = new springDataWithES.models.Entities.User(UUID.randomUUID().toString(), "gg", new ArrayList<>());
 ```
+
+
+Update the Web Security to be eligible with Spring Boot 3
+https://www.baeldung.com/spring-deprecated-websecurityconfigureradapter

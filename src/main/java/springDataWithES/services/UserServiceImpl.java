@@ -7,6 +7,7 @@ import springDataWithES.models.DTO.User;
 import springDataWithES.persistence.FilmRepository;
 import springDataWithES.persistence.UserRepository;
 
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User retrieveUserByName(String name) {
-        return userConverter.convertToDto(retrieveUserByNameFromRepo(name));
+        return userConverter.convertToDto(this.userRepository.findByUserNameUsingCustomQuery(name));
     }
 
     @Override
@@ -40,18 +41,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         springDataWithES.models.Entities.User targetUser = userConverter.convertToEntity(user);
-        if (isNull(retrieveUserByNameFromRepo(user.getName()))) {
+        Optional<springDataWithES.models.Entities.User> userSaved = retrieveUser(user);
+        if (isNull(userSaved) || userSaved.isEmpty()) {
             targetUser.setId(UUID.randomUUID().toString());
             addFilmsIfNonExistent(targetUser.getFavouriteFilms());
             this.userRepository.save(targetUser);
+        } else {
+            updateUser(user);
         }
     }
 
     @Override
     public void updateUser(User user) {
         springDataWithES.models.Entities.User targetUser = userConverter.convertToEntity(user);
-        Optional<springDataWithES.models.Entities.User> storedUserOptional = retrieveUserByIdFromRepo(user.getId());
-        if(storedUserOptional.isPresent()){
+        Optional<springDataWithES.models.Entities.User> storedUserOptional = retrieveUser(user);
+        if (storedUserOptional.isPresent()) {
             springDataWithES.models.Entities.User storedUser = storedUserOptional.get();
             storedUser.setName(targetUser.getName());
             addFilmsIfNonExistent(targetUser.getFavouriteFilms());
@@ -81,11 +85,13 @@ public class UserServiceImpl implements UserService {
                 .forEach(film -> this.filmRepository.save(film));
     }
 
-    private springDataWithES.models.Entities.User retrieveUserByNameFromRepo(String name) {
-        return this.userRepository.findByUserNameUsingCustomQuery(name);
-    }
+    private Optional<springDataWithES.models.Entities.User> retrieveUser(User user) {
+        if (!isNull(user.getId())) {
+            return this.userRepository.findById(user.getId());
+        } else if (!isNull(user.getName())) {
+            return Optional.of(this.userRepository.findByUserNameUsingCustomQuery(user.getName()));
+        }
 
-    private Optional<springDataWithES.models.Entities.User> retrieveUserByIdFromRepo(String id) {
-        return this.userRepository.findById(id);
+        return Optional.empty();
     }
 }

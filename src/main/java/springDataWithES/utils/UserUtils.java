@@ -12,4 +12,8 @@ public class UserUtils {
         iterable.iterator().forEachRemaining(users::add);
         return users;
     }
+
+    public static List<User> toList(List<User> list) {
+        return new ArrayList<>(list);
+    }
 }

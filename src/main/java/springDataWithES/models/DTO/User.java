@@ -3,7 +3,7 @@ package springDataWithES.models.DTO;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public sealed class User permits Author {
 
     private String id;
     private String name;

@@ -27,9 +27,9 @@ public class FilmConverter implements BaseConverter<Film, springDataWithES.model
     @Override
     public Film convertToEntity(springDataWithES.models.DTO.Film toEntity) {
         if(!isNull(toEntity)){
-            springDataWithES.models.Entities.Author director = authorConverter.convertToEntity(toEntity.getDirector());
+            springDataWithES.models.Entities.Author director = authorConverter.convertToEntity(toEntity.director());
             return new Film(
-                    toEntity.getId(), toEntity.getTitle(), toEntity.getGenre(), director, toEntity.getDateOfRelease());
+                    toEntity.id(), toEntity.title(), toEntity.genre(), director, toEntity.dateOfRelease());
         }
 
         throw new NullPointerException(NULL_EXCEPTION_MESSAGE);

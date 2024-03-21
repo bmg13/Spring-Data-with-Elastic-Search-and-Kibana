@@ -38,7 +38,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void addFilm(Film film) {
         springDataWithES.models.Entities.Film targetFilm = filmConverter.convertToEntity(film);
-        if (isNull(retrieveFilmByTitleFromRepo(film.getTitle()))) {
+        if (isNull(retrieveFilmByTitleFromRepo(film.title()))) {
             targetFilm.setId(UUID.randomUUID().toString());
             this.filmRepository.save(targetFilm);
         }
@@ -47,7 +47,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public void updateFilm(Film film) {
         springDataWithES.models.Entities.Film targetFilm = filmConverter.convertToEntity(film);
-        Optional<springDataWithES.models.Entities.Film> storedFilmOptional = retrieveFilmByIdFromRepo(film.getId());
+        Optional<springDataWithES.models.Entities.Film> storedFilmOptional = retrieveFilmByIdFromRepo(film.id());
         if(storedFilmOptional.isPresent()) {
             springDataWithES.models.Entities.Film storedFilm = storedFilmOptional.get();
             storedFilm.setTitle(targetFilm.getTitle());

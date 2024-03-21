@@ -2,7 +2,7 @@ package springDataWithES.models.DTO;
 
 import java.util.List;
 
-public class Author extends User {
+public final class Author extends User {
 
     public Author() {super();}
 
